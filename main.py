@@ -12,7 +12,7 @@ import webbrowser
 import argparse
 import sys
 
-from settings import LOGFILE_URI, DATABASE_URI, LOG_LEVEL, CLIENT_ID, CLIENT_SECRET, CLIENT_ACCESSCODE, SUBREDDIT
+from settings import LOGFILE_URI, DATABASE_URI, LOG_LEVEL, CLIENT_ID, CLIENT_SECRET, CLIENT_ACCESSCODE, SUBREDDIT, REDIRECT_URI
 import model
 import praw
 
@@ -47,6 +47,9 @@ Links that may be useful to you:
 }
 
 class Classifier(object):
+    """
+    Wrapper for the vectorizer and classifier that handles training of both.
+    """
     def __init__(self, training_values, training_targets):
         self.vectorizer = TfidfVectorizer()
         self.classifier = OneVsRestClassifier(svm.LinearSVC(class_weight='balanced'))
@@ -63,7 +66,7 @@ def connect_to_database(uri):
 
 def get_reddit_client():
     reddit = praw.Reddit(user_agent='test')
-    reddit.set_oauth_app_info(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri='http://127.0.0.1/callback')
+    reddit.set_oauth_app_info(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI)
     return reddit
 
 def run_bot(args):
@@ -114,11 +117,14 @@ def train_bot(args):
     session.commit()
 
 def create_token(args):
+    reddit = get_reddit_client()
     url = reddit.get_authorize_url('uniqueKey', 'identity,submit,read', True)
     webbrowser.open(url)
-    print('Please copy the access code that you are redirected to:')
-    print('Like this: http://praw.readthedocs.org/en/latest/_images/CodeUrl.png')
-    print('Put it in settings.py as CLIENT_ACCESSCODE')
+    print('                   !!!                    ')
+    print('Please copy the access code that you are redirected to ')
+    print('like this: http://praw.readthedocs.org/en/latest/_images/CodeUrl.png')
+    print('You need to put it in settings.py as CLIENT_ACCESSCODE')
+    print('                   !!!                    ')
 
 def initialise_database(args):
     engine = create_engine(DATABASE_URI)
