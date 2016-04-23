@@ -65,7 +65,7 @@ def connect_to_database(uri):
     return sessionmaker(bind=engine)
 
 def get_reddit_client():
-    reddit = praw.Reddit(user_agent='test')
+    reddit = praw.Reddit(user_agent='all platforms:Learn Programming Bot:v0.1.0 (by /u/Aurora0001, contact at github.com/Aurora0001/LearnProgrammingBot/issues)')
     reddit.set_oauth_app_info(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI)
     return reddit
 
