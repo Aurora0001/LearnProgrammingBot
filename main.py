@@ -101,6 +101,9 @@ def run_bot(args):
             try:
                 message.add_comment(responses[pred])
             except praw.errors.RateLimitExceeded:
+                # TODO:
+                # Ideally, errors should actually be handled properly. Perhaps a dequeue could be used
+                # to store all the posts which failed, which could be retried every minute (or so)
                 logging.error('Rate limit exceeded, cannot post to thread {}'.format(message.title))
 
 def train_bot(args):
