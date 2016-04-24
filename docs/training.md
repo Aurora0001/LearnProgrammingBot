@@ -24,7 +24,11 @@ LearnProgrammingBot will then fetch the post from reddit, and display it for you
 For the best results, it's best to be generous with your classification, and, if in doubt, classify as 'good'. Check `data.db` for examples of how previous posts were classified, if you're not sure.
 
 ## Training in Batches
- You might find it easier to train with larger samples from the 'new' feed of /r/learnprogramming. This will be supported soon ([see issue #3](https://github.com/Aurora0001/LearnProgrammingBot/issues/3)).
+ You might find it easier to train with larger samples from the 'new' feed of /r/learnprogramming. This is supported with the `train-batch` command, which can be used like so:
+ 
+     ./main.py train-batch --limit AMOUNT_OF_POSTS_TO_CLASSIFY
+     
+ This is also interactive, just like the `train` command. To see the valid classifications, please see the above section.
  
 ## Committing Changes
  To merge your database changes with the main repository, [fork LearnProgrammingBot](https://github.com/Aurora0001/LearnProgrammingBot) on GitHub, then clone your copy. Train the classifier using the steps listed above, then [create a pull request](https://help.github.com/articles/using-pull-requests/). Try to do this relatively quickly (i.e. don't wait for days before merging) because it's difficult to resolve merge conflicts with the database.
