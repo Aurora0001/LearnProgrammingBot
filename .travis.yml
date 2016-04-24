@@ -13,5 +13,4 @@ install:
   - "conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION scikit-learn"
   - "source activate test-environment"
   - "pip install praw sqlalchemy"
-  - "python setup.py install"
 script: python test.py
