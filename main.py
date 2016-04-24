@@ -60,6 +60,10 @@ class Classifier(object):
         transformed_text = self.vectorizer.transform([text]).toarray()
         return self.classifier.predict(transformed_text)
 
+    def get_probability(self, text):
+        transformed_text = self.vectorizer.transform([text]).toarray()
+        return self.classifier.decision_function(transformed_text)
+
 def connect_to_database(uri):
     engine = create_engine(uri)
     return sessionmaker(bind=engine)
@@ -152,7 +156,9 @@ def classify_item(args):
 
     classifier = Classifier(data_values, data_targets)
     post_text = post.title + ' ' + post.selftext
-    print(classifier.classify(post_text)[0])
+    classification = classifier.classify(post_text)[0]
+    probability = classifier.get_probability(post_text)[0]
+    print('p({}) = {}'.format(classification, max(probability)))
 
 def initialise_database(args):
     engine = create_engine(DATABASE_URI)
