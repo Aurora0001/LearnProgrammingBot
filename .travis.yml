@@ -1,6 +1,6 @@
 addons:
   apt:
-    sources:
+    packages:
     - python-scipy
 language: python
 python:
