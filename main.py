@@ -12,7 +12,7 @@ import webbrowser
 import argparse
 import sys
 
-from settings import LOGFILE_URI, DATABASE_URI, LOG_LEVEL, CLIENT_ID, CLIENT_SECRET, CLIENT_ACCESSCODE, SUBREDDIT, REDIRECT_URI
+from settings import LOGFILE_URI, DATABASE_URI, LOG_LEVEL, CLIENT_ID, CLIENT_SECRET, CLIENT_ACCESSCODE, SUBREDDIT, REDIRECT_URI, LOG_FORMAT
 import model
 import praw
 
@@ -70,7 +70,7 @@ def get_reddit_client():
     return reddit
 
 def run_bot(args):
-    logging.basicConfig(filename=LOGFILE_URI, level=LOG_LEVEL)
+    logging.basicConfig(filename=LOGFILE_URI, level=LOG_LEVEL, format=LOG_FORMAT)
 
     logging.info('Connecting to database {}'.format(DATABASE_URI))
     Session = connect_to_database(DATABASE_URI)

@@ -7,6 +7,7 @@ DATABASE_URI = 'sqlite:///data.db'
 # This will be auto-created if it does not exist
 LOGFILE_URI = 'bot.log'
 LOG_LEVEL = 20
+LOG_FORMAT = '%(asctime)s [%(levelname)s] %(message)s [%(module)s:%(funcName)s:%(lineno)d]'
 
 SUBREDDIT = 'learnprogramming'
 REDIRECT_URI = 'http://127.0.0.1/callback'
