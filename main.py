@@ -65,7 +65,7 @@ def connect_to_database(uri):
     return sessionmaker(bind=engine)
 
 def get_reddit_client():
-    reddit = praw.Reddit(user_agent='all platforms:Learn Programming Bot:v0.1.0 (by /u/Aurora0001, contact at github.com/Aurora0001/LearnProgrammingBot/issues)')
+    reddit = praw.Reddit(user_agent='all platforms:Learn Programming Bot:v0.2.0-pre (by /u/Aurora0001, contact at github.com/Aurora0001/LearnProgrammingBot/issues)')
     reddit.set_oauth_app_info(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI)
     return reddit
 
@@ -139,6 +139,21 @@ def create_token(args):
     print('You need to put it in settings.py as CLIENT_ACCESSCODE')
     print('                   !!!                    ')
 
+def classify_item(args):
+    reddit = get_reddit_client()
+    post = reddit.get_submission(submission_id=args.id)
+
+    Session = connect_to_database(DATABASE_URI)
+    session = Session()
+
+    data = session.query(model.Corpus).all()
+    data_values = [col.title + ' ' + col.text for col in data]
+    data_targets = [col.category for col in data]
+
+    classifier = Classifier(data_values, data_targets)
+    post_text = post.title + ' ' + post.selftext
+    print(classifier.classify(post_text)[0])
+
 def initialise_database(args):
     engine = create_engine(DATABASE_URI)
     model.Corpus.metadata.create_all(engine)
@@ -158,5 +173,8 @@ if __name__ == '__main__':
     parser_token.set_defaults(func=create_token)
     parser_init = subparsers.add_parser('init', help='initialises the database, ready to insert training data')
     parser_init.set_defaults(func=initialise_database)
+    parser_classify = subparsers.add_parser('classify', help='classifies a specific post using the trained data')
+    parser_classify.add_argument('--id', type=str, required=True, help='the submission id of the post to classify')
+    parser_classify.set_defaults(func=classify_item)
     args = parser.parse_args(sys.argv[1:])
     args.func(args)
