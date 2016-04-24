@@ -106,18 +106,28 @@ def run_bot(args):
                 # to store all the posts which failed, which could be retried every minute (or so)
                 logging.error('Rate limit exceeded, cannot post to thread {}'.format(message.title))
 
-def train_bot(args):
+def train_id(args):
+    train_bot(args, True)
+
+def train_batch(args):
+    train_bot(args, False)
+
+def train_bot(args, by_id):
     reddit = get_reddit_client()
-    message = reddit.get_submission(submission_id=args.id)
-    print(message.title)
-    print('----------')
-    print(message.selftext)
-    print('')
-    message_type = input('Enter category: ')
-    Session = connect_to_database(DATABASE_URI)
-    session = Session()
-    session.add(model.Corpus(title=message.title, text=message.selftext, category=message_type))
-    session.commit()
+    if by_id:
+        messages = [reddit.get_submission(submission_id=args.id)]
+    else:
+        messages = reddit.get_subreddit(SUBREDDIT).get_new(limit=args.limit)
+    for message in messages:
+        print(message.title)
+        print('----------')
+        print(message.selftext)
+        print('')
+        message_type = input('Enter category: ')
+        Session = connect_to_database(DATABASE_URI)
+        session = Session()
+        session.add(model.Corpus(title=message.title, text=message.selftext, category=message_type))
+        session.commit()
 
 def create_token(args):
     reddit = get_reddit_client()
@@ -138,9 +148,12 @@ if __name__ == '__main__':
     subparsers = parser.add_subparsers()
     parser_run = subparsers.add_parser('run', help='runs the bot')
     parser_run.set_defaults(func=run_bot)
-    parser_train = subparsers.add_parser('train', help='adds training data to the bot')
+    parser_train = subparsers.add_parser('train', help='adds training data to the bot (using a specific id)')
     parser_train.add_argument('--id', type=str, required=True, help='the submission id of the post to review')
-    parser_train.set_defaults(func=train_bot)
+    parser_train.set_defaults(func=train_id)
+    parser_batch = subparsers.add_parser('train-batch', help='adds training data to the bot in batches')
+    parser_batch.add_argument('--limit', type=int, required=True, help='the maximum number of posts to fetch')
+    parser_batch.set_defaults(func=train_batch)
     parser_token = subparsers.add_parser('create-token', help='gets an access token with your client id/secret')
     parser_token.set_defaults(func=create_token)
     parser_init = subparsers.add_parser('init', help='initialises the database, ready to insert training data')
