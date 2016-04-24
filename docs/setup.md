@@ -1,8 +1,7 @@
 # Setup
- To configure LearnProgrammingBot, you'll need to obtain an OAuth access token from reddit. This will allow LearnProgrammingBot to log in to the account that you want to automate. You'll also need to ensure that the training database is correct for your subreddit, if you're not running it for /r/learnprogramming.
- 
+ To configure LearnProgrammingBot, you'll need to obtain an OAuth access token from reddit. This will allow LearnProgrammingBot to log in to the account that you want to automate. 
 ## Getting the OAuth Tokens
- To use OAuth (which is required by reddit), you need **3 tokens**: the client id, the client secret and the access token.
+ To use OAuth (which reddit requires), you need **3 tokens**: the client id, the client secret and the access token.
 ### Getting the ID and Secret Tokens
  To create these tokens, you'll need to go to [the app preferences](https://www.reddit.com/prefs/apps/) page, while logged in as your bot account. If you don't see something like this, you may need to click 'create another app...':
 
