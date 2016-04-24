@@ -1,5 +1,5 @@
 # Summary
 
 * [Installation](docs/installation.md)
-* Setup
+* [Setup](docs/setup.md)
 
