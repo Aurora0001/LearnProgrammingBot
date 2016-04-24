@@ -159,6 +159,9 @@ def classify_item(args):
     classification = classifier.classify(post_text)[0]
     probability = classifier.get_probability(post_text)[0]
     print('p({}) = {}'.format(classification, max(probability)))
+    print('All probabilities: {}'.format(probability))
+    print('p(event) = -1 means that the classifier is certain that the post is not in this category.')
+    print('p(event) = 1 means that the classifier is certain that the post is in this category.')
 
 def initialise_database(args):
     engine = create_engine(DATABASE_URI)
