@@ -1,4 +1,0 @@
-# Summary
-
-* Setup and Installation
-
