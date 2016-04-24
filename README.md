@@ -4,6 +4,7 @@
 
 [![Join the chat at https://gitter.im/Aurora0001/LearnProgrammingBot](https://badges.gitter.im/Aurora0001/LearnProgrammingBot.svg)](https://gitter.im/Aurora0001/LearnProgrammingBot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Travis CI](https://travis-ci.org/Aurora0001/LearnProgrammingBot.svg?branch=master)](https://travis-ci.org/Aurora0001/LearnProgrammingBot)
+[![Dependency Status](https://www.versioneye.com/user/projects/571ce8b8fcd19a0039f17f9b/badge.svg?style=flat)](https://www.versioneye.com/user/projects/571ce8b8fcd19a0039f17f9b)
 
 LearnProgrammingBot is a bot for [reddit](https://reddit.com) that uses
 scikit-learn and supervised learning techniques to categorise submissions and
