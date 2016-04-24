@@ -2,7 +2,7 @@
 
 To train the bot, you need to install LearnProgrammingBot and its dependencies (see the Installation and Setup sections).
 
-## Training with one Specific Post
+## Training with a Specific Post
  You can train the bot with one post if it has misclassified it, using the following command:
  
      ./main.py train --id ID
@@ -25,3 +25,14 @@ For the best results, it's best to be generous with your classification, and, if
 
 ## Training in Batches
  You might find it easier to train with larger samples from the 'new' feed of /r/learnprogramming. This will be supported soon ([see issue #3](https://github.com/Aurora0001/LearnProgrammingBot/issues/3)).
+ 
+## Committing Changes
+ To merge your database changes with the main repository, [fork LearnProgrammingBot](https://github.com/Aurora0001/LearnProgrammingBot) on GitHub, then clone your copy. Train the classifier using the steps listed above, then [create a pull request](https://help.github.com/articles/using-pull-requests/). Try to do this relatively quickly (i.e. don't wait for days before merging) because it's difficult to resolve merge conflicts with the database.
+ 
+### Summary
+1. Fork repository
+2. `git clone https://github.com/MyUserName/LearnProgrammingBot`
+3. Train classifer
+4. `git commit -m "Trained classifier with X new records"`
+5. `git push origin master`
+6. Create pull request on GitHub
