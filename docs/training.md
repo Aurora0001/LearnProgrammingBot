@@ -1,6 +1,6 @@
 # Training
 
-To train the bot, you need to install LearnProgrammingBot and its dependencies (see the Installation and Setup sections).
+To train the bot, you need to install LearnProgrammingBot and its dependencies (see the Installation section). You do **not** need to create OAuth tokens as shown in the Setup section if you are only training the bot.
 
 ## Training with a Specific Post
  You can train the bot with one post if it has misclassified it, using the following command:
