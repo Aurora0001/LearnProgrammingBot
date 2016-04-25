@@ -6,6 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sklearn import svm
+from sklearn.pipeline import Pipeline
 from sklearn.multiclass import OneVsRestClassifier
 import logging
 import webbrowser
@@ -46,23 +47,24 @@ Links that may be useful to you:
     '''
 }
 
+ClassifierPipeline = [
+    ('tfidf', TfidfVectorizer()),
+    ('svc', OneVsRestClassifier(svm.LinearSVC(class_weight='balanced')))
+]
+
 class Classifier(object):
     """
     Wrapper for the vectorizer and classifier that handles training of both.
     """
     def __init__(self, training_values, training_targets):
-        self.vectorizer = TfidfVectorizer()
-        self.classifier = OneVsRestClassifier(svm.LinearSVC(class_weight='balanced'))
-        training_values = self.vectorizer.fit_transform(training_values).toarray()
-        self.classifier.fit(training_values, training_targets)
+        self.pipeline = Pipeline(ClassifierPipeline)
+        self.pipeline.fit(training_values, training_targets)
 
     def classify(self, text):
-        transformed_text = self.vectorizer.transform([text]).toarray()
-        return self.classifier.predict(transformed_text)
+        return self.pipeline.predict(text)
 
     def get_probability(self, text):
-        transformed_text = self.vectorizer.transform([text]).toarray()
-        return self.classifier.decision_function(transformed_text)
+        return self.pipeline.decision_function(text)
 
 def connect_to_database(uri):
     engine = create_engine(uri)
@@ -162,6 +164,8 @@ def classify_item(args):
     print('All probabilities: {}'.format(probability))
     print('p(event) = -1 means that the classifier is certain that the post is not in this category.')
     print('p(event) = 1 means that the classifier is certain that the post is in this category.')
+    print('It is possible that all categories can be negative, so the classifier will pick the ')
+    print("'least-worst' option.")
 
 def initialise_database(args):
     engine = create_engine(DATABASE_URI)
