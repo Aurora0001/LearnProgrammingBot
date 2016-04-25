@@ -50,9 +50,13 @@ class Classifier(object):
     """
     Wrapper for the vectorizer and classifier that handles training of both.
     """
-    def __init__(self, training_values, training_targets):
+    def __init__(self, training_values=None, training_targets=None):
         self.vectorizer = TfidfVectorizer()
         self.classifier = OneVsRestClassifier(svm.LinearSVC(class_weight='balanced'))
+        if training_values is not None and training_targets is not None:
+            self.fit(training_values, training_targets)
+
+    def fit(self, training_values, training_targets):
         training_values = self.vectorizer.fit_transform(training_values).toarray()
         self.classifier.fit(training_values, training_targets)
 
