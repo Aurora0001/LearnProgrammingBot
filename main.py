@@ -52,7 +52,7 @@ class Classifier(object):
     """
     def __init__(self, training_values=None, training_targets=None):
         self.vectorizer = TfidfVectorizer()
-        self.classifier = OneVsRestClassifier(svm.LinearSVC(class_weight='balanced'))
+        self.classifier = svm.LinearSVC(class_weight='balanced')
         if training_values is not None and training_targets is not None:
             self.fit(training_values, training_targets)
 
