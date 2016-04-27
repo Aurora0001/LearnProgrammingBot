@@ -22,19 +22,31 @@ if sys.version_info[:2] <= (2, 7):
 
 responses = {
     'bad': '''
-Hi! Your post doesn't seem very suitable for /r/learnprogramming. This may be because you didn't include a code sample, provided very little detail or linked content that doesn't seem relevant. You can improve your post by:
+Hi! Your post might not attract good responses on /r/learnprogramming.
+This may be because you didn't include a code sample, provided very little
+detail or linked content that doesn't seem relevant. You can improve your post
+by:
 
 - [Asking Questions The Smart Way](http://catb.org/~esr/faqs/smart-questions.html)
 - Avoiding posting links without any explanation, discussion or question
 - Using code pastebins (images don't count!)
 - Reviewing the post guidelines on the sidebar
 
-Don't worry about this message if you think your post **is** relevant - it may just be an error in my classifier - but please check the resources above anyway to make sure that your post is good.
+Don't worry about this message if you think it's a mistake - it may just be an
+error in my classifier - but please check the resources above anyway to make
+sure that your post gets the best responses.
 
-*I am a bot for /r/learnprogramming using supervised learning to detect common questions. If this message is irrelevant or unhelpful, please report an issue so I can improve my classifier!*
+---
+I am a bot for /r/learnprogramming using supervised learning to provide helpful
+responses to common posts.
+
+[[Learn More]](https://github.com/Aurora0001/LearnProgrammingBot)
+[[Report an Issue]](https://github.com/Aurora0001/LearnProgrammingBot/issues)
     ''',
     'faq': '''
-Hello! Your post seems similar to one of the common questions answered in the [/r/learnprogramming FAQ](https://www.reddit.com/r/learnprogramming/wiki/faq), and you might find an answer to your question there.
+Hello! Your post seems similar to one of the common questions answered in the
+[/r/learnprogramming FAQ](https://www.reddit.com/r/learnprogramming/wiki/faq),
+and you might find an answer to your question there.
 
 Links that may be useful to you:
 
@@ -42,7 +54,12 @@ Links that may be useful to you:
 - [/r/cscareerquestions](https://www.reddit.com/r/cscareerquestions)
 - [Getting Started with Programming](https://www.reddit.com/r/learnprogramming/wiki/gettingstarted)
 
-*I am a bot for /r/learnprogramming using supervised learning to detect common questions. Your post was recognised as an faq question. If this seems irrelevant or unhelpful, please report an issue on GitHub!*
+---
+I am a bot for /r/learnprogramming using supervised learning to provide helpful
+responses to common posts.
+
+[[Learn More]](https://github.com/Aurora0001/LearnProgrammingBot)
+[[Report an Issue]](https://github.com/Aurora0001/LearnProgrammingBot/issues)
     '''
 }
 

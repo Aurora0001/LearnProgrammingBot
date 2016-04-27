@@ -18,12 +18,15 @@ class TestClassifier(unittest.TestCase):
         training_data = session.query(model.Corpus).all()
         training_values = [rec.title + ' ' + rec.text for rec in training_data]
         training_targets = [rec.category for rec in training_data]
-        training_values, testing_values, training_targets, testing_targets = cross_validation.train_test_split(training_values, training_targets, test_size=0.33, random_state=0)
+        training_values, testing_values, training_targets, testing_targets = cross_validation.train_test_split(training_values, training_targets, test_size=0.3, random_state=0)
         classifier = main.Classifier(training_values, training_targets)
         for (i, message_text) in enumerate(testing_values):
             classification = classifier.classify(message_text)[0]
             if testing_targets[i] == 'good' and classification != 'good':
                 false_positives += 1
+                print(message_text)
+                print('[Suspected {}]'.format(classification))
+                print('---')
             elif testing_targets[i] != 'good' and classification == 'good':
                 false_negatives += 1
             elif testing_targets[i] == classification:
