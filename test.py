@@ -37,7 +37,7 @@ class TestClassifier(unittest.TestCase):
         print('{} false negatives ({})'.format(false_negatives, float(false_negatives)/len(testing_values)))
         print('{} correct ({})'.format(correct, float(correct)/len(testing_values)))
         print('{} wrong ({})'.format(wrong, float(wrong)/len(testing_values)))
-        if float(false_positives) / len(testing_values) > 0.1:
+        if float(false_positives) / len(testing_values) > 0.05:
             raise Exception('False positive rate too high!')
         elif float(correct) / len(testing_values) < 0.6:
             raise Exception('Correct identification rate too low!')
