@@ -52,7 +52,8 @@ class Classifier(object):
     """
     def __init__(self, training_values=None, training_targets=None):
         self.vectorizer = TfidfVectorizer()
-        self.classifier = svm.LinearSVC(class_weight='balanced')
+        # TODO: Grid search for best hyperparameters
+        self.classifier = svm.LinearSVC(C=10)
         if training_values is not None and training_targets is not None:
             self.fit(training_values, training_targets)
 

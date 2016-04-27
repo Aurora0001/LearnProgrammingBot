@@ -19,7 +19,6 @@ if __name__ == '__main__':
     data_targets = [col.category for col in data]
     classifier = main.Classifier()
     classifier.vectorizer.fit_transform(data_values)
-    # TODO: Check if this actually works!
     train_sizes, train_scores, test_scores = learning_curve(classifier.classifier, classifier.vectorizer.transform(data_values), data_targets, cv=6)
     train_scores_mean = np.mean(train_scores, axis=1)
     train_scores_std = np.std(train_scores, axis=1)
