@@ -69,8 +69,9 @@ class Classifier(object):
     """
     def __init__(self, training_values=None, training_targets=None):
         self.vectorizer = TfidfVectorizer()
-        # TODO: Grid search for best hyperparameters
-        self.classifier = svm.LinearSVC(C=10)
+        # Set using parameter_search. TODO: review after updating
+        # corpus.
+        self.classifier = svm.LinearSVC(C=10, loss='hinge')
         if training_values is not None and training_targets is not None:
             self.fit(training_values, training_targets)
 

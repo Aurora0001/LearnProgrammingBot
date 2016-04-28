@@ -1,5 +1,4 @@
 from sklearn.learning_curve import learning_curve
-from sklearn.pipeline import Pipeline
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import numpy as np
