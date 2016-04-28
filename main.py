@@ -97,7 +97,7 @@ class Classifier(object):
         self.vectorizer = make_union(TfidfVectorizer(), PostTransformer())
         # Set using parameter_search. TODO: review after updating
         # corpus.
-        self.classifier = svm.LinearSVC(C=10, loss='hinge')
+        self.classifier = svm.LinearSVC(C=1, loss='squared_hinge', class_weight='balanced', tol=0.1)
         if training_values is not None and training_targets is not None:
             self.fit(training_values, training_targets)
 

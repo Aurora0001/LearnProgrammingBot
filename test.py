@@ -18,7 +18,7 @@ class TestClassifier(unittest.TestCase):
         training_data = session.query(model.Corpus).all()
         training_values = [rec.title + ' ' + rec.text for rec in training_data]
         training_targets = [rec.category for rec in training_data]
-        training_values, testing_values, training_targets, testing_targets = cross_validation.train_test_split(training_values, training_targets, test_size=0.3, random_state=0)
+        training_values, testing_values, training_targets, testing_targets = cross_validation.train_test_split(training_values, training_targets, test_size=0.2, random_state=5)
         classifier = main.Classifier(training_values, training_targets)
         for (i, message_text) in enumerate(testing_values):
             classification = classifier.classify(message_text)[0]
