@@ -2,11 +2,14 @@
 
 from __future__ import print_function
 
+from sklearn.pipeline import make_union
+from sklearn.base import TransformerMixin
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sklearn import svm
 from sklearn.multiclass import OneVsRestClassifier
+import numpy as np
 import logging
 import webbrowser
 import argparse
@@ -63,12 +66,35 @@ responses to common posts.
     '''
 }
 
+class PostTransformer(TransformerMixin):
+    """
+    Transforms posts on two characteristics:
+    - Amount of links
+    - Length of post
+    """
+    def __init__(self):
+        pass
+
+    def fit(self, *args):
+        return self
+
+    def transform(self, X, *args, **kwargs):
+        ret = []
+        for item in X:
+            ret.append(float(len(item)) / 10000)
+            ret.append(item.count('http'))
+
+        y = np.array(ret).reshape(-1, 2)
+        return y
+
+    fit_transform = transform
+
 class Classifier(object):
     """
     Wrapper for the vectorizer and classifier that handles training of both.
     """
     def __init__(self, training_values=None, training_targets=None):
-        self.vectorizer = TfidfVectorizer()
+        self.vectorizer = make_union(TfidfVectorizer(), PostTransformer())
         # Set using parameter_search. TODO: review after updating
         # corpus.
         self.classifier = svm.LinearSVC(C=10, loss='hinge')

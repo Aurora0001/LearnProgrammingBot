@@ -11,10 +11,11 @@ import settings
 
 param_grid = [
     {
-        'C': [1, 10, 100, 1000],
+        'C': [1, 5, 10, 50],
         'loss': ['hinge', 'squared_hinge'],
-        'tol': [1e-4, 1e-3, 1e-2, 1e-1],
-        'multi_class': ['ovr', 'crammer_singer']
+        'tol': [1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1],
+        'multi_class': ['ovr', 'crammer_singer'],
+        'class_weight': ['balanced']
     }
 ]
 
