@@ -31,7 +31,8 @@ detail or linked content that doesn't seem relevant. You can improve your post
 by:
 
 - [Asking Questions The Smart Way](http://catb.org/~esr/faqs/smart-questions.html)
-- Avoiding posting links without any explanation, discussion or question
+- Avoiding posting links without any explanation, discussion or question (links
+might get a better response on /r/programming)
 - Using code pastebins (images don't count!)
 - Reviewing the post guidelines on the sidebar
 
@@ -97,7 +98,7 @@ class Classifier(object):
         self.vectorizer = make_union(TfidfVectorizer(), PostTransformer())
         # Set using parameter_search. TODO: review after updating
         # corpus.
-        self.classifier = svm.LinearSVC(C=1, loss='squared_hinge', class_weight='balanced', tol=0.1)
+        self.classifier = svm.LinearSVC(C=5, loss='squared_hinge', multi_class='crammer_singer', class_weight='balanced', tol=0.1)
         if training_values is not None and training_targets is not None:
             self.fit(training_values, training_targets)
 
