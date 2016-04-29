@@ -57,12 +57,12 @@ Currently, the classifier only recognises 3 types of post classes:
 detail.
 
 ## Accuracy
-As of commit `4c60f73`, the classifier's accuracy is as follows:
+As of commit `9742b376ef4e845ac45cbd96e86dfe7156dc913e`, the classifier's accuracy is as follows:
 
-- Correct classification = 73%
-- False negative = 17%
-- False positive = 7%
-- Wrong category = 3%
+- Correct classification = 81%
+- False negative = 13%
+- False positive = 5%
+- Wrong category = 1%
 
 False negatives are counted as any time that the actual class was not 'good' and
 the classifier returned 'good'. False positives occur when the actual class was
