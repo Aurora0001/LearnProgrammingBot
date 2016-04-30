@@ -182,6 +182,8 @@ def train_bot(args, by_id):
         print(message.selftext)
         print('')
         message_type = input('Enter category: ')
+        if message_type == '':
+            continue
         Session = connect_to_database(DATABASE_URI)
         session = Session()
         session.add(model.Corpus(title=message.title, text=message.selftext, category=message_type))
