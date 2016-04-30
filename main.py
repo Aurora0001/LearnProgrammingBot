@@ -69,9 +69,11 @@ responses to common posts.
 
 class PostTransformer(TransformerMixin):
     """
-    Transforms posts on two characteristics:
+    Transforms posts on four characteristics:
     - Amount of links
     - Length of post
+    - Contains block code
+    - Contains inline code
     """
     def __init__(self):
         pass
@@ -84,8 +86,10 @@ class PostTransformer(TransformerMixin):
         for item in X:
             ret.append(float(len(item)) / 10000)
             ret.append(item.count('http'))
+            ret.append('    ' in item)
+            ret.append('`' in item)
 
-        y = np.array(ret).reshape(-1, 2)
+        y = np.array(ret).reshape(-1, 4)
         return y
 
     fit_transform = transform
