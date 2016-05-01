@@ -22,12 +22,12 @@ class TestClassifier(unittest.TestCase):
         classifier = main.Classifier(training_values, training_targets)
         for (i, message_text) in enumerate(testing_values):
             classification = classifier.classify(message_text)[0]
-            if testing_targets[i] == 'good' and classification != 'good':
+            if (testing_targets[i] == 'good' or testing_targets[i] == 'discussion') and (classification != 'good' and classification != 'discussion'):
                 false_positives += 1
                 print(message_text)
                 print('[Suspected {}]'.format(classification))
                 print('---')
-            elif testing_targets[i] != 'good' and classification == 'good':
+            elif (training_targets[i] != 'good' and training_targets[i] != 'discussion') and (classification == 'good' or classification == 'discussion'):
                 false_negatives += 1
             elif testing_targets[i] == classification:
                 correct += 1

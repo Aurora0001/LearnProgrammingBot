@@ -11,8 +11,8 @@ Valid categories:
 - resource (incl. self post blogs)
 - discussion (generally non-code questions)
 - good
-- off_topic
-- bad_question
+- off_topic (incl. bad questions)
+- bad_question (todo: merge with off_topic?)
 - faq_get_started (incl. getting started with a project - where do I start?)
 - faq_career
 - faq_resource
