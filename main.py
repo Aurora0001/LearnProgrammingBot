@@ -75,8 +75,10 @@ class PostTransformer(TransformerMixin):
     - Contains block code
     - Contains inline code
     """
-    def __init__(self):
-        pass
+    def __init__(self, word_k=10000, link_k=5):
+        # TODO: grid search for best constants
+        self.word_k = word_k
+        self.link_k = link_k
 
     def fit(self, *args):
         return self
@@ -84,8 +86,8 @@ class PostTransformer(TransformerMixin):
     def transform(self, X, *args, **kwargs):
         ret = []
         for item in X:
-            ret.append(float(len(item)) / 10000)
-            ret.append(item.count('http'))
+            ret.append(float(len(item)) / self.word_k)
+            ret.append(float(item.count('http')) / self.link_k)
             ret.append('    ' in item)
             ret.append('`' in item)
 
