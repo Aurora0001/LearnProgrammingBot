@@ -9,17 +9,15 @@ import settings
 """
 Valid categories:
 - resource (incl. self post blogs)
-- discussion (generally non-code questions)
 - good
 - off_topic (incl. bad questions)
-- bad_question (todo: merge with off_topic?)
 - faq_get_started (incl. getting started with a project - where do I start?)
 - faq_career
-- faq_resource
+- faq_resource (incl. challenges e.g. codewars)
 - faq_tool (incl. laptop specs)
 - faq_language (e.g. how much should I know before I am expert, which should I
 pick)
-- faq_other (including motivation etc.)
+- faq_other (including motivation, 'does a programmer google?', project ideas etc.)
 
 """
 
