@@ -8,7 +8,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sklearn import svm
-from sklearn.multiclass import OneVsRestClassifier
 import numpy as np
 import logging
 import webbrowser
@@ -89,9 +88,8 @@ class PostTransformer(TransformerMixin):
             ret.append(float(len(item)) / self.word_k)
             ret.append(float(item.count('http')) / self.link_k)
             ret.append('    ' in item)
-            ret.append('`' in item)
 
-        y = np.array(ret).reshape(-1, 4)
+        y = np.array(ret).reshape(-1, 3)
         return y
 
     fit_transform = transform
