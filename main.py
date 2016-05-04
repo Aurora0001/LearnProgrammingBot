@@ -8,11 +8,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sklearn import svm
+from stemming.porter2 import stem
 import numpy as np
 import logging
 import webbrowser
 import argparse
 import sys
+import re
 
 from settings import LOGFILE_URI, DATABASE_URI, LOG_LEVEL, CLIENT_ID, CLIENT_SECRET, CLIENT_ACCESSCODE, SUBREDDIT, REDIRECT_URI, LOG_FORMAT
 import model
@@ -65,6 +67,7 @@ responses to common posts.
 [[Report an Issue]](https://github.com/Aurora0001/LearnProgrammingBot/issues)
     '''
 }
+
 
 class PostTransformer(TransformerMixin):
     """
