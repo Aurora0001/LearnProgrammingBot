@@ -8,7 +8,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sklearn import svm
-from stemming.porter2 import stem
 import numpy as np
 import logging
 import webbrowser
