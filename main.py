@@ -24,7 +24,7 @@ if sys.version_info[:2] <= (2, 7):
     input = raw_input
 
 responses = {
-    'bad': '''
+    'off_topic': '''
 Hi! Your post might not attract good responses on /r/learnprogramming.
 This may be because you didn't include a code sample, provided very little
 detail or linked content that doesn't seem relevant. You can improve your post
@@ -37,35 +37,84 @@ might get a better response on /r/programming)
 - Reviewing the post guidelines on the sidebar
 
 Don't worry about this message if you think it's a mistake - it may just be an
-error in my classifier - but please check the resources above anyway to make
+error in my classifier, but please check the resources above anyway to make
 sure that your post gets the best responses.
+''',
+    'faq_get_started': '''
+Hello! Your post seems to be about getting started with programming or a
+project. You can find some great resources about this in the
+[/r/learnprogramming FAQ](https://www.reddit.com/r/learnprogramming/wiki/faq).
 
----
-I am a bot for /r/learnprogramming using supervised learning to provide helpful
-responses to common posts.
+Specifically, you might find these useful:
 
-[[Learn More]](https://github.com/Aurora0001/LearnProgrammingBot)
-[[Report an Issue]](https://github.com/Aurora0001/LearnProgrammingBot/issues)
-    ''',
-    'faq': '''
-Hello! Your post seems similar to one of the common questions answered in the
-[/r/learnprogramming FAQ](https://www.reddit.com/r/learnprogramming/wiki/faq),
-and you might find an answer to your question there.
-
-Links that may be useful to you:
-
-- [Programming Resources](https://www.reddit.com/r/learnprogramming/wiki/online)
-- [/r/cscareerquestions](https://www.reddit.com/r/cscareerquestions)
 - [Getting Started with Programming](https://www.reddit.com/r/learnprogramming/wiki/gettingstarted)
+- [FAQ - How do I get started?](https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_how_do_i_get_started_with_programming.3F)
+- [FAQ - How do I get started with a large project?](https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_how_do_i_get_started_with_a_large_project_and_keep_up_with_it.3F)
+''',
+    'faq_career': '''
+Hello! Your post seems to be about starting a career in programming. You'll
+be able to get the best advice in the subreddit /r/cscareerquestions, who
+specifically deal with questions like this.
+
+The wiki also has some useful advice about this:
+
+- [FAQ - Careers](https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_careers_and_jobs)
+''',
+    'faq_resource': '''
+Hello! You seem to be looking for a resource or tutorial. The /r/learnprogramming
+wiki has a comprehensive list of resources that might be useful to you, but if
+what you're looking for isn't on there, please help by adding it!
+
+- [Online Resources](http://www.reddit.com/r/learnprogramming/wiki/online)
+- [Books](http://www.reddit.com/r/learnprogramming/wiki/books)
+- [Programming Challenges](http://www.reddit.com/r/learnprogramming/wiki/faq#wiki_where_can_i_find_practice_exercises_and_project_ideas.3F)
+
+You might also like the [Awesome Lists](https://awesomelists.top/), which are
+curated lists for the best libraries, tools and resources for most programming
+languages, topics and tools.
+''',
+    'faq_tool': '''
+Hello! Your post seems to be about a programming tool or hardware (e.g. a laptop).
+
+Take a look at the following links:
+
+- /r/suggestalaptop
+- [Wiki - Programming Tools](https://www.reddit.com/r/learnprogramming/wiki/tools)
+''',
+    'faq_language': '''
+Hello! You seem to be asking about which programming language to use for a
+project or which language to learn. This is quite a frequent question so you
+might find that you get the best answer from the
+[FAQ](https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_which_programming_language_should_i_start_with.3F).
+
+Also, why not try the [choosing a language tool](http://choosing-a-language.techboss.co/)
+by Techboss which should guide you in picking a suitable language.
+
+The general advice here is that you should focus on one programming language
+that you know well, so you can improve your *algorithmic thinking* skills.
+'Language hopping' tends to be a bad idea because you are always learning
+syntax, which is less important.
+''',
+    'faq_other': '''
+Hello! Your post seems similar to an FAQ question, but I can't specifically
+figure out which section would be helpful to you.
+
+Take a look through [the wiki](https://www.reddit.com/r/learnprogramming/wiki/index)
+if you haven't already, and check to see if it helps you. If not, please
+report an issue so I can give more specific help in future!
+''',
+}
+
+post_signature = '''
 
 ---
 I am a bot for /r/learnprogramming using supervised learning to provide helpful
-responses to common posts.
+responses to common posts. I'm open source and accept pull requests and
+contributions!
 
 [[Learn More]](https://github.com/Aurora0001/LearnProgrammingBot)
 [[Report an Issue]](https://github.com/Aurora0001/LearnProgrammingBot/issues)
-    '''
-}
+'''
 
 
 class PostTransformer(TransformerMixin):
@@ -157,9 +206,9 @@ def run_bot(args):
     for message in praw.helpers.submission_stream(reddit, SUBREDDIT, limit=5, verbosity=0):
         message_text = message.title + ' ' + message.selftext
         pred = classifier.classify(message_text)[0]
-        if pred != 'good':
+        if pred in responses:
             try:
-                message.add_comment(responses[pred])
+                message.add_comment(responses[pred] + post_signature)
             except praw.errors.RateLimitExceeded:
                 # TODO:
                 # Ideally, errors should actually be handled properly. Perhaps a dequeue could be used
