@@ -25,7 +25,7 @@ class TestClassifier(unittest.TestCase):
             if testing_targets[i] == 'good' and classification != 'good':
                 false_positives += 1
                 print(message_text)
-                print('[Suspected {}]'.format(classification))
+                print('[Suspected {}; actually good]'.format(classification))
                 print('---')
             elif testing_targets[i] != 'good' and classification == 'good':
                 false_negatives += 1
@@ -33,6 +33,9 @@ class TestClassifier(unittest.TestCase):
                 correct += 1
             else:
                 wrong += 1
+                print(message_text)
+                print('[Suspected {}; actually {}]'.format(classification, testing_targets[i]))
+                print('---')
         print('{} false positives ({})'.format(false_positives, float(false_positives)/len(testing_values)))
         print('{} false negatives ({})'.format(false_negatives, float(false_negatives)/len(testing_values)))
         print('{} correct ({})'.format(correct, float(correct)/len(testing_values)))
