@@ -52,7 +52,7 @@ Specifically, you might find these useful:
 - [FAQ - How do I get started with a large project?](https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_how_do_i_get_started_with_a_large_project_and_keep_up_with_it.3F)
 ''',
     'faq_career': '''
-Hello! Your post seems to be about starting a career in programming. You'll
+Hello! Your post seems to be about careers in programming. You'll
 be able to get the best advice in the subreddit /r/cscareerquestions, who
 specifically deal with questions like this.
 
@@ -113,7 +113,7 @@ responses to common posts. I'm open source and accept pull requests and
 contributions!
 
 [[Learn More]](https://github.com/Aurora0001/LearnProgrammingBot)
-[[Report an Issue]](https://github.com/Aurora0001/LearnProgrammingBot/issues)
+[[Report an Issue (or reply below with feedback)]](https://github.com/Aurora0001/LearnProgrammingBot/issues)
 '''
 
 
@@ -138,7 +138,7 @@ class PostTransformer(TransformerMixin):
         for item in X:
             ret.append(float(len(item)) / self.word_k)
             ret.append(float(item.count('http')) / self.link_k)
-            ret.append('    ' in item)
+            ret.append(float(item.count('    ')) / len(item))
 
         y = np.array(ret).reshape(-1, 3)
         return y
@@ -153,7 +153,7 @@ class Classifier(object):
         self.vectorizer = make_union(TfidfVectorizer(), PostTransformer())
         # Set using parameter_search. TODO: review after updating
         # corpus.
-        self.classifier = svm.LinearSVC(C=5, loss='squared_hinge', multi_class='ovr', class_weight='balanced', tol=1e-6)
+        self.classifier = svm.LinearSVC(C=1, loss='squared_hinge', multi_class='ovr', class_weight='balanced', tol=1e-6)
         if training_values is not None and training_targets is not None:
             self.fit(training_values, training_targets)
 
@@ -207,6 +207,9 @@ def run_bot(args):
         message_text = message.title + ' ' + message.selftext
         pred = classifier.classify(message_text)[0]
         if pred in responses:
+            if args.supervised and input('Classify {} as {}? (y/n) '.format(message.id, pred)).lower() != 'y':
+                continue
+
             try:
                 message.add_comment(responses[pred] + post_signature)
             except praw.errors.RateLimitExceeded:
@@ -278,6 +281,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
     parser_run = subparsers.add_parser('run', help='runs the bot')
+    parser_run.add_argument('--supervised', action='store_true')
     parser_run.set_defaults(func=run_bot)
     parser_train = subparsers.add_parser('train', help='adds training data to the bot (using a specific id)')
     parser_train.add_argument('--id', type=str, required=True, help='the submission id of the post to review')
