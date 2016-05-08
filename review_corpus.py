@@ -8,7 +8,6 @@ import settings
 
 """
 Valid categories:
-- resource (incl. self post blogs)
 - good
 - off_topic (incl. bad questions)
 - faq_get_started (incl. getting started with a project - where do I start?)
