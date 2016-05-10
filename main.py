@@ -103,6 +103,11 @@ Take a look through [the wiki](https://www.reddit.com/r/learnprogramming/wiki/in
 if you haven't already, and check to see if it helps you. If not, please
 report an issue so I can give more specific help in future!
 ''',
+    'faq_resource_podcast': '''
+Looking for a podcast? You might find these threads useful:
+- [Podcasts for Beginners](https://www.reddit.com/r/learnprogramming/comments/47dusa/podcasts_any_recommendations_for_a_beginner/)
+- [Advanced Programming Podcasts](https://www.reddit.com/r/learnprogramming/comments/3pw6gl/advanced_programming_concepts_or_fun_fact_type/)
+    '''
 }
 
 post_signature = '''
