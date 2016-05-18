@@ -66,7 +66,7 @@ As of commit `9742b376ef4e845ac45cbd96e86dfe7156dc913e`, the classifier's accura
 
 False negatives are counted as any time that the actual class was not 'good' and
 the classifier returned 'good'. False positives occur when the actual class was
-'good' but the classifer did not return 'good'. Wrong category classifications
+'good' but the classifier did not return 'good'. Wrong category classifications
 occur when the classifier returned a different negative classification (i.e.
 'faq' instead of 'bad')
 
