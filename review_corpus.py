@@ -18,6 +18,7 @@ Valid categories:
 - faq_language (e.g. how much should I know before I am expert, which should I
 pick)
 - faq_other (including motivation, 'does a programmer google?', project ideas etc.)
+- faq_what_now (what to do after codecademy etc.)
 
 """
 
