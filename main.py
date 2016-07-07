@@ -74,7 +74,7 @@ curated lists for the best libraries, tools and resources for most programming
 languages, topics and tools.
 ''',
     'faq_tool': '''
-Hello! Your post seems to be about a programming tool or hardware (e.g. a laptop).
+Hello! Your post seems to be about a programming tool, IDE or hardware (e.g. a laptop).
 
 Take a look at the following links:
 
@@ -103,6 +103,18 @@ Take a look through [the wiki](https://www.reddit.com/r/learnprogramming/wiki/in
 if you haven't already, and check to see if it helps you. If not, please
 report an issue so I can give more specific help in future!
 ''',
+    'faq_resource_podcast': '''
+Looking for a podcast? You might find these threads useful:
+
+- [Podcasts for Beginners](https://www.reddit.com/r/learnprogramming/comments/47dusa/podcasts_any_recommendations_for_a_beginner/)
+- [Advanced Programming Podcasts](https://www.reddit.com/r/learnprogramming/comments/3pw6gl/advanced_programming_concepts_or_fun_fact_type/)
+    ''',
+    'faq_what_now': '''
+Hi! If you've just completed your first course and aren't sure where to go next, take a look at some of these guides and see if they help:
+
+- [FAQ - Now what do I do?](https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_now_what_do_i_do.3F)
+- [How do I move from beginner to intermediate level?](https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_how_do_i_move_from_an_beginning_to_an_intermediate_level.3F)
+    '''
 }
 
 post_signature = '''
@@ -269,9 +281,9 @@ def classify_item(args):
     classification = classifier.classify(post_text)[0]
     probability = classifier.get_probability(post_text)[0]
     print('p({}) = {}'.format(classification, max(probability)))
-    print('All probabilities: {}'.format(probability))
-    print('p(event) = -1 means that the classifier is certain that the post is not in this category.')
-    print('p(event) = 1 means that the classifier is certain that the post is in this category.')
+    print('-----------')
+    for (i, class_) in enumerate(classifier.classifier.classes_):
+        print('p({}) = {}'.format(class_, probability[i]))
 
 def initialise_database(args):
     engine = create_engine(DATABASE_URI)

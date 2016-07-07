@@ -17,10 +17,10 @@ REDIRECT_URI = 'http://127.0.0.1/callback'
 # the type to 'script', and the 'redirect uri' to http://127.0.0.1/callback
 # The string labelled 'secret' is your CLIENT_SECRET, and the other one is your
 # CLIENT_ID.
-CLIENT_ID = ''
-CLIENT_SECRET = ''
+CLIENT_ID = 'PLEASE_SET_THIS'
+CLIENT_SECRET = 'PLEASE_SET_THIS'
 
 # Please use ./main.py create-token to generate this, after setting CLIENT_ID
 # and CLIENT_SECRET. It will open your web browser to get permission to
 # use OAuth. This only needs to be done once.
-CLIENT_ACCESSCODE = 'access_code_here'
+CLIENT_ACCESSCODE = 'PLEASE_SET_THIS'
